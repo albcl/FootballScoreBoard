@@ -1,4 +1,4 @@
-import { isString, isValidArray } from '../utils';
+import { isString, isValidArray, isvalidScore } from '../utils';
 
 interface Board {
     _matches: Map<string[], number[]>;
@@ -42,6 +42,32 @@ class Board {
         } catch (error) {
             throw new Error(error);
         }
+    }
+
+    /**
+     * Update a match score
+     *
+     * @param {string[]} teams
+     * @param {number[]} score
+     */
+    updateScore(teams: string[], score: number[]) {
+        if (!isValidArray(teams)) {
+            throw new Error('`Teams` needs to be passed as an array of 2 elements');
+        }
+        if (!isValidArray(score)) {
+            throw new Error('`Score` needs to be passed as an array of 2 elements');
+        }
+        if (!isString(teams)) {
+            throw new Error('Teams need to be string');
+        }
+        if (!this._matches.has(teams)) {
+            throw new Error(`There is not ${teams.join(' - ')} match`);
+        }
+        if (!isvalidScore(score)) {
+            throw new Error(`That's not a valid score: ${score}`);
+        }
+
+        this._matches.set(teams, score);
     }
 }
 

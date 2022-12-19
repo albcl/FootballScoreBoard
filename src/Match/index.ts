@@ -1,4 +1,4 @@
-import { isValidArray } from '../utils';
+import { isValidArray, isString } from '../utils';
 
 interface Match {
     teams: string[];
@@ -9,6 +9,9 @@ class Match {
     constructor(teams: string[]) {
         if (!isValidArray(teams)) {
             throw new Error('A match needs two teams for it to happen');
+        }
+        if (!isString(teams)) {
+            throw new Error('Teams need to be string');
         }
 
         this.teams = teams;

@@ -72,4 +72,14 @@ describe('Board Cases', () => {
     test("Fail: Can't finish a game that isn't happening", () => {
         expect(() => board.finishMatch(['abc', 'def'])).toThrow(/not playing/);
     });
+
+    test("Fail: Can't finish match. Team need to be string", () => {
+        // @ts-ignore
+        expect(() => board.finishMatch([1, 'def'])).toThrow(/string/);
+    });
+
+    test("Fail: Can't finish match. Teams need to be an array or won't be found on Map()", () => {
+        // @ts-ignore
+        expect(() => board.finishMatch('Team 01')).toThrowError();
+    });
 });

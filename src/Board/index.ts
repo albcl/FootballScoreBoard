@@ -51,6 +51,13 @@ class Board {
      * @param {number[]} score
      */
     updateScore(teams: string[], score: number[]) {
+        if (!isValidArray(teams)) {
+            throw new Error('`Teams` needs to be passed as an array of 2 elements');
+        }
+        if (!isValidArray(score)) {
+            throw new Error('`Score` needs to be passed as an array of 2 elements');
+        }
+
         this._matches.set(teams, score);
     }
 }

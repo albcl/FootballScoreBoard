@@ -38,4 +38,9 @@ describe('Board Cases', () => {
         // @ts-ignore
         expect(() => board.updateScore('Team 01', [0 - 1])).toThrowError();
     });
+
+    test("Fail: Can't update. Invalid score", () => {
+        // @ts-ignore
+        expect(() => board.updateScore(team, 0)).toThrowError();
+    });
 });

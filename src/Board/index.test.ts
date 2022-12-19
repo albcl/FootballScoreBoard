@@ -4,9 +4,9 @@ describe('Board Cases', () => {
     let board: Board;
     const expectedMatches = new Map();
     const matches = [
-        { teams: ['Team 01', 'Team 02'], score: [1, 4] },
+        { teams: ['Team 01', 'Team 02'], score: [1, 1] },
         { teams: ['Team 03', 'Team 04'], score: [3, 0] },
-        { teams: ['Team 05', 'Team 06'], score: [1, 1] },
+        { teams: ['Team 05', 'Team 06'], score: [1, 4] },
     ];
 
     test('Create a new board just fine', () => {
@@ -84,7 +84,21 @@ describe('Board Cases', () => {
     });
 
     test('No games. Get empty Summary', () => {
-        const summary = board.getSummary();
+        const emptyBoard = new Board();
+        const summary = emptyBoard.getSummary();
         expect(summary).toEqual([]);
+    });
+
+    test('Get current matches by total score (summary)', () => {
+        const summary = board.getSummary();
+
+        const expectedOrder = [
+            'Team 05 1 - Team 06 4',
+            'Team 03 3 - Team 04 0',
+            'Team 01 1 - Team 02 1',
+        ];
+        summary.forEach((line, ix) => {
+            expect(line).toEqual(expectedOrder[ix]);
+        });
     });
 });

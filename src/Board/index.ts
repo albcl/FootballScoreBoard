@@ -69,6 +69,20 @@ class Board {
 
         this._matches.set(teams, score);
     }
+
+    /**
+     * Finish an active match
+     *
+     * @param {string[]} teams
+     */
+    finishMatch(teams: string[]) {
+        if (!isString(teams)) {
+            throw new Error('Teams need to be string');
+        }
+        if (!this._matches.delete(teams)) {
+            throw new Error(`${teams.join(' - ')} are not playing at the moment`);
+        }
+    }
 }
 
 export default Board;

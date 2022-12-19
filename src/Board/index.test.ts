@@ -33,4 +33,9 @@ describe('Board Cases', () => {
         board.updateScore(team, [1, 0]);
         expect(board._matches.get(team)).toMatchObject([1, 0]);
     });
+
+    test("Fail: Can't update. Teams need to be an array", () => {
+        // @ts-ignore
+        expect(() => board.updateScore('Team 01', [0 - 1])).toThrowError();
+    });
 });

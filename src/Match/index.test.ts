@@ -13,4 +13,8 @@ describe('Match Cases', () => {
         // @ts-ignore
         expect(() => new Match('Team 01')).toThrow(/needs two teams/);
     });
+
+    test('Fail to set new match: Team needs to be string', () => {
+        expect(() => new Match(['Team 01', 'Team 02'])).toThrow(/to be string/);
+    });
 });

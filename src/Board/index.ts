@@ -1,7 +1,7 @@
-import { isString, isValidArray, isvalidScore } from '../utils';
+import { isString, isValidArray, isvalidScore, setKey } from '../utils';
 
 interface Board {
-    _matches: Map<string[], number[]>;
+    _matches: Map<string, number[]>;
 }
 
 class Board {
@@ -38,7 +38,7 @@ class Board {
                 throw new Error('Teams need to be string');
             }
             this._isTeamPlaying(teams);
-            this._matches.set(teams, [0, 0]);
+            this._matches.set(setKey(teams), [0, 0]);
         } catch (error) {
             throw new Error(error);
         }
@@ -60,14 +60,16 @@ class Board {
         if (!isString(teams)) {
             throw new Error('Teams need to be string');
         }
-        if (!this._matches.has(teams)) {
-            throw new Error(`There is not ${teams.join(' - ')} match`);
-        }
         if (!isvalidScore(score)) {
             throw new Error(`That's not a valid score: ${score}`);
         }
 
-        this._matches.set(teams, score);
+        const mapKey = setKey(teams);
+        if (!this._matches.has(setKey(teams))) {
+            throw new Error(`There is not ${teams.join(' - ')} match`);
+        }
+
+        this._matches.set(mapKey, score);
     }
 
     /**
@@ -79,7 +81,7 @@ class Board {
         if (!isString(teams)) {
             throw new Error('Teams need to be string');
         }
-        if (!this._matches.delete(teams)) {
+        if (!this._matches.delete(setKey(teams))) {
             throw new Error(`${teams.join(' - ')} are not playing at the moment`);
         }
     }

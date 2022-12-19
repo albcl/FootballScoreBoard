@@ -69,4 +69,8 @@ describe('Board Cases', () => {
         expect(res).toBeTruthy();
         expect(board._matches.size).toBe(matches.length - 1);
     });
+
+    test("Fail: Can't finish a game that isn't happening", () => {
+        expect(() => board.finishMatch(['abc', 'def'])).toThrowError();
+    });
 });

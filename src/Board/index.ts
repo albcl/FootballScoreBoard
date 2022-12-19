@@ -83,6 +83,16 @@ class Board {
             throw new Error(`${teams.join(' - ')} are not playing at the moment`);
         }
     }
+
+    /**
+     * Get live matches sorted by total score and
+     * ordered by most recently added for those
+     * matches with same total score.
+     *
+     * @param {string[]} teams
+     * @returns {string[]} Live matches
+     */
+    getSummary() {}
 }
 
 export default Board;

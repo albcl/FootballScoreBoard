@@ -82,4 +82,9 @@ describe('Board Cases', () => {
         // @ts-ignore
         expect(() => board.finishMatch('Team 01')).toThrowError();
     });
+
+    test('No games. Get empty Summary', () => {
+        const summary = board.getSummary();
+        expect(summary).toEqual([]);
+    });
 });

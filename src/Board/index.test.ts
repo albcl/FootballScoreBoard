@@ -15,4 +15,9 @@ describe('Board Cases', () => {
         board.addMatch(team);
         expect(board._matches).toMatchObject(expectedMatches);
     });
+
+    test('Fail: Teams need to be string', () => {
+        // @ts-ignore
+        expect(() => board.addMatch([1, 'Team B'])).toThrowError();
+    });
 });

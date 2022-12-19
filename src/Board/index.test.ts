@@ -36,7 +36,7 @@ describe('Board Cases', () => {
 
     test("Fail: Can't update. Teams need to be an array", () => {
         // @ts-ignore
-        expect(() => board.updateScore('Team 01', [0 - 1])).toThrowError();
+        expect(() => board.updateScore('Team 01', [0, 1])).toThrowError();
     });
 
     test("Fail: Can't update. Invalid score", () => {
@@ -47,5 +47,10 @@ describe('Board Cases', () => {
     test("Fail: Can't update. Teams need to be string", () => {
         // @ts-ignore
         expect(() => board.updateScore([1, 'Team 01'], [0, 1])).toThrowError();
+    });
+
+    test("Fail: Can't update. Match doesn't exist", () => {
+        const newValue = [2, 5];
+        expect(() => board.updateScore(['abc', 'def'], newValue)).toThrowError();
     });
 });

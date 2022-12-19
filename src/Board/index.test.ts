@@ -4,9 +4,12 @@ describe('Board Cases', () => {
     let board: Board;
     const expectedMatches = new Map();
     const matches = [
-        { teams: ['Team 01', 'Team 02'], score: [1, 1] },
+        { teams: ['Team 01', 'Team 02'], score: [1, 4] },
         { teams: ['Team 03', 'Team 04'], score: [3, 0] },
-        { teams: ['Team 05', 'Team 06'], score: [1, 4] },
+        { teams: ['Team 05', 'Team 06'], score: [1, 1] },
+        { teams: ['Team 07', 'Team 08'], score: [0, 2] },
+        { teams: ['Team 09', 'Team 10'], score: [2, 1] },
+        { teams: ['Team 11', 'Team 12'], score: [0, 0] },
     ];
 
     test('Create a new board just fine', () => {
@@ -72,9 +75,12 @@ describe('Board Cases', () => {
         const summary = board.getSummary();
 
         const expectedOrder = [
-            'Team 05 1 - Team 06 4',
+            'Team 01 1 - Team 02 4',
             'Team 03 3 - Team 04 0',
-            'Team 01 1 - Team 02 1',
+            'Team 09 2 - Team 10 1',
+            'Team 05 1 - Team 06 1',
+            'Team 07 0 - Team 08 2',
+            'Team 11 0 - Team 12 0',
         ];
         summary.forEach((line, ix) => {
             expect(line).toEqual(expectedOrder[ix]);

@@ -38,3 +38,11 @@ export const isvalidScore = (score: number[]) => {
 
     return true;
 };
+
+/**
+ * Return a stringify string
+ *
+ * @param {any} value
+ * @returns {string} Stringify string
+ */
+export const setKey = (value: any) => JSON.stringify(value);

@@ -1,4 +1,4 @@
-import { isString, isValidArray, isvalidScore } from '.';
+import { isString, isValidArray, isvalidScore, setKey } from '.';
 
 describe('Utils Cases', () => {
     test('Is string', () => {
@@ -49,5 +49,13 @@ describe('Utils Cases', () => {
 
     test('Fail: Score is below zero', () => {
         expect(isvalidScore([-1, 0])).toBeFalsy();
+    });
+
+    test('Set key from any param', () => {
+        expect(setKey(['value a', 'value b'])).toEqual('["value a","value b"]');
+        expect(setKey([0, 1])).toBe('[0,1]');
+        expect(setKey('value a')).toBe('"value a"');
+        expect(setKey(0)).toBe('0');
+        expect(setKey(null)).toBe('null');
     });
 });

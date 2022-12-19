@@ -1,4 +1,4 @@
-import { isValidArray, isString } from '../utils';
+import { isValidArray, isString, isvalidScore } from '../utils';
 
 interface Match {
     teams: string[];
@@ -23,7 +23,12 @@ class Match {
      *
      * @param {number[]} score
      */
-    updateScore(score: number[]) {}
+    updateScore(score: number[]) {
+        if (!isvalidScore(score)) {
+            throw new Error(`That's not a valid score: ${score}`);
+        }
+        this.score = score;
+    }
 }
 
 export default Match;

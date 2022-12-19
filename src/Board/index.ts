@@ -43,6 +43,14 @@ class Board {
             throw new Error(error);
         }
     }
+
+    /**
+     * Update a match score
+     *
+     * @param {string[]} teams
+     * @param {number[]} score
+     */
+    updateScore(teams: string[], score: number[]) {}
 }
 
 export default Board;

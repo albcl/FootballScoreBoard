@@ -2,13 +2,13 @@ import Board from '.';
 
 describe('Board Cases', () => {
     let board: Board;
+    const team = ['Team 01', 'Team 02'];
 
     test('Create a new board just fine', () => {
         expect(() => (board = new Board())).not.toThrowError();
     });
 
     test('Add match', () => {
-        const team = ['Team 01', 'Team 02'];
         const expectedMatches = new Map();
         expectedMatches.set(team, [0, 0]);
 
@@ -27,5 +27,10 @@ describe('Board Cases', () => {
 
     test("Fail: Can't add match. It already exists", () => {
         expect(() => board.addMatch(['Team 01', 'Team 10'])).toThrow(/already playing/);
+    });
+
+    test('Update score', () => {
+        board.updateScore(team, [1, 0]);
+        expect(board._matches.get(team)).toMatchObject([1, 0]);
     });
 });

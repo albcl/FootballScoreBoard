@@ -57,6 +57,9 @@ class Board {
         if (!isValidArray(score)) {
             throw new Error('`Score` needs to be passed as an array of 2 elements');
         }
+        if (!isString(teams)) {
+            throw new Error('Teams need to be string');
+        }
 
         this._matches.set(teams, score);
     }

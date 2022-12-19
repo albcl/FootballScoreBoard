@@ -1,3 +1,5 @@
+import { isString } from '../utils';
+
 interface Board {
     _matches: Map<string[], number[]>;
 }
@@ -13,6 +15,9 @@ class Board {
      * @param {string[]} teams
      */
     addMatch(teams: string[]) {
+        if (!isString(teams)) {
+            throw new Error('Teams need to be string');
+        }
         this._matches.set(teams, [0, 0]);
     }
 }

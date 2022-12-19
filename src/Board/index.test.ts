@@ -24,4 +24,8 @@ describe('Board Cases', () => {
     test('Fail: Need two teams for a match', () => {
         expect(() => board.addMatch(['Lonely team'])).toThrowError();
     });
+
+    test("Fail: Can't add match. It already exists", () => {
+        expect(() => board.addMatch(['Team 01', 'Team 10'])).toThrow(/already playing/);
+    });
 });

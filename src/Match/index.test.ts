@@ -8,4 +8,9 @@ describe('Match Cases', () => {
         expect(match.teams.length).toBe(2);
         expect(match.score).toEqual([0, 0]);
     });
+
+    test('Fail to set new match: Missing team', () => {
+        // @ts-ignore
+        expect(() => new Match('Team 01')).toThrow(/needs two teams/);
+    });
 });

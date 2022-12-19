@@ -69,6 +69,13 @@ class Board {
 
         this._matches.set(teams, score);
     }
+
+    /**
+     * Finish an active match
+     *
+     * @param {string[]} teams
+     */
+    finishMatch(teams: string[]) {}
 }
 
 export default Board;

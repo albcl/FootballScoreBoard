@@ -62,4 +62,10 @@ describe('Board Cases', () => {
         const newValue = [2.1, 5];
         expect(() => board.updateScore(matches[0].teams, newValue)).toThrow(/not a valid score/);
     });
+
+    test('Finish match', () => {
+        expect(board._matches.size).toBe(matches.length);
+        board.finishMatch(matches[1].teams);
+        expect(board._matches.size).toBe(matches.length - 1);
+    });
 });

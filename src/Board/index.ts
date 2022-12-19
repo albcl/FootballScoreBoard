@@ -76,7 +76,9 @@ class Board {
      * @param {string[]} teams
      */
     finishMatch(teams: string[]) {
-        return this._matches.delete(teams);
+        if (!this._matches.delete(teams)) {
+            throw new Error(`${teams.join(' - ')} are not playing at the moment`);
+        }
     }
 }
 

@@ -65,12 +65,11 @@ describe('Board Cases', () => {
 
     test('Finish match', () => {
         expect(board._matches.size).toBe(matches.length);
-        const res = board.finishMatch(matches[1].teams);
-        expect(res).toBeTruthy();
+        expect(() => board.finishMatch(matches[1].teams)).not.toThrowError();
         expect(board._matches.size).toBe(matches.length - 1);
     });
 
     test("Fail: Can't finish a game that isn't happening", () => {
-        expect(() => board.finishMatch(['abc', 'def'])).toThrowError();
+        expect(() => board.finishMatch(['abc', 'def'])).toThrow(/not playing/);
     });
 });

@@ -17,6 +17,13 @@ class Match {
         this.teams = teams;
         this.score = [0, 0];
     }
+
+    /**
+     * Update score
+     *
+     * @param {number[]} score
+     */
+    updateScore(score: number[]) {}
 }
 
 export default Match;

@@ -18,4 +18,12 @@ describe('Match Cases', () => {
         // @ts-ignore
         expect(() => new Match(['Team 01', [0, 1]])).toThrow(/to be string/);
     });
+
+    test('Update score', () => {
+        const match = new Match([teams[0], teams[1]]);
+        const score = [3, 4];
+
+        match.updateScore(score);
+        expect(match.score).toEqual(score);
+    });
 });

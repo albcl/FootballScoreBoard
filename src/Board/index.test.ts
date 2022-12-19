@@ -13,6 +13,11 @@ describe('Board Cases', () => {
         expect(() => (board = new Board())).not.toThrowError();
     });
 
+    test('No games. Get empty Summary', () => {
+        const summary = board.getSummary();
+        expect(summary).toEqual([]);
+    });
+
     test.each(matches)('Add $teams match', ({ teams }) => {
         expectedMatches.set(teams, [0, 0]);
 
@@ -63,6 +68,19 @@ describe('Board Cases', () => {
         expect(() => board.updateScore(matches[0].teams, newValue)).toThrow(/not a valid score/);
     });
 
+    test('Get current matches by total score (summary)', () => {
+        const summary = board.getSummary();
+
+        const expectedOrder = [
+            'Team 05 1 - Team 06 4',
+            'Team 03 3 - Team 04 0',
+            'Team 01 1 - Team 02 1',
+        ];
+        summary.forEach((line, ix) => {
+            expect(line).toEqual(expectedOrder[ix]);
+        });
+    });
+
     test('Finish match', () => {
         expect(board._matches.size).toBe(matches.length);
         expect(() => board.finishMatch(matches[1].teams)).not.toThrowError();
@@ -81,24 +99,5 @@ describe('Board Cases', () => {
     test("Fail: Can't finish match. Teams need to be an array or won't be found on Map()", () => {
         // @ts-ignore
         expect(() => board.finishMatch('Team 01')).toThrowError();
-    });
-
-    test('No games. Get empty Summary', () => {
-        const emptyBoard = new Board();
-        const summary = emptyBoard.getSummary();
-        expect(summary).toEqual([]);
-    });
-
-    test('Get current matches by total score (summary)', () => {
-        const summary = board.getSummary();
-
-        const expectedOrder = [
-            'Team 05 1 - Team 06 4',
-            'Team 03 3 - Team 04 0',
-            'Team 01 1 - Team 02 1',
-        ];
-        summary.forEach((line, ix) => {
-            expect(line).toEqual(expectedOrder[ix]);
-        });
     });
 });

@@ -83,6 +83,31 @@ class Board {
             throw new Error(`${teams.join(' - ')} are not playing at the moment`);
         }
     }
+
+    /**
+     * Get live matches sorted by total score and
+     * ordered by most recently added for those
+     * matches with same total score.
+     *
+     * @param {string[]} teams
+     * @returns {string[]} Live matches
+     */
+    getSummary() {
+        return [...this._matches]
+            .sort((matchA, matchB) => {
+                const totalScoreA = matchA[1][0] + matchA[1][1];
+                const totalScoreB = matchB[1][0] + matchB[1][1];
+
+                if (totalScoreA > totalScoreB) return -1;
+                if (totalScoreA < totalScoreB) return 1;
+                return 0;
+            })
+            .map(match => {
+                const teams = match[0];
+                const score = match[1];
+                return `${teams[0]} ${score[0]} - ${teams[1]} ${score[1]}`;
+            });
+    }
 }
 
 export default Board;

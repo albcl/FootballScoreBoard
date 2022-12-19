@@ -92,7 +92,9 @@ class Board {
      * @param {string[]} teams
      * @returns {string[]} Live matches
      */
-    getSummary() {}
+    getSummary() {
+        return [...this._matches.values()];
+    }
 }
 
 export default Board;

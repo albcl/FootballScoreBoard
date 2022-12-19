@@ -1,4 +1,4 @@
-import { isString, isValidArray } from '../utils';
+import { isString, isValidArray, isvalidScore } from '../utils';
 
 interface Board {
     _matches: Map<string[], number[]>;
@@ -63,9 +63,9 @@ class Board {
         if (!this._matches.has(teams)) {
             throw new Error(`There is not ${teams.join(' - ')} match`);
         }
-        // if (!isvalidScore(score)) {
-        //     throw new Error(`That's not a valid score: ${score}`);
-        // }
+        if (!isvalidScore(score)) {
+            throw new Error(`That's not a valid score: ${score}`);
+        }
 
         this._matches.set(teams, score);
     }

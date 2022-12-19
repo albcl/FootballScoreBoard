@@ -56,6 +56,6 @@ describe('Board Cases', () => {
 
     test('Fail: Score needs to be an integer', () => {
         const newValue = [2.1, 5];
-        expect(() => board.updateScore(team, newValue)).toThrowError();
+        expect(() => board.updateScore(team, newValue)).toThrow(/not a valid score/);
     });
 });

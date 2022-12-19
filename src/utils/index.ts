@@ -31,5 +31,10 @@ export const isValidArray = (parameter: (string | number)[]) => {
  * @returns {boolean}
  */
 export const isvalidScore = (score: number[]) => {
-    return 'to-do';
+    if (score.length !== 2) return false;
+    if (!score.every(value => !isNaN(value))) return false;
+    if (!score.every(value => Number.isInteger(value))) return false;
+    if (!score.every(value => value >= 0)) return false;
+
+    return true;
 };

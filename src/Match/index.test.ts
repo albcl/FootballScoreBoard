@@ -26,4 +26,11 @@ describe('Match Cases', () => {
         match.updateScore(score);
         expect(match.score).toEqual(score);
     });
+
+    test('Fail to update score: Missing score', () => {
+        const match = new Match([teams[0], teams[1]]);
+
+        expect(() => match.updateScore([3])).toThrow(/not a valid score/);
+        expect(match.score).toEqual([0, 0]);
+    });
 });

@@ -106,4 +106,25 @@ describe('Board Cases', () => {
         // @ts-ignore
         expect(() => board.finishMatch('Team 01')).toThrowError();
     });
+
+    test("Map() key as array doesn't fit our need", () => {
+        // Map()'s key uses the reference to the array, not its content
+        const map = new Map();
+
+        const arrayA = ['Team A', 'Team B'];
+        const arrayB = ['Team A', 'Team B'];
+
+        map.set(arrayA, [0, 0]);
+        expect(map.delete(arrayB)).toBeFalsy();
+    });
+
+    test('Map() key as stringify array does work better for us', () => {
+        const map = new Map();
+
+        const arrayA = JSON.stringify(['Team A', 'Team B']);
+        const arrayB = JSON.stringify(['Team A', 'Team B']);
+
+        map.set(arrayA, []);
+        expect(map.delete(arrayB)).toBeTruthy();
+    });
 });

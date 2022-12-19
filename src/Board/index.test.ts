@@ -43,4 +43,9 @@ describe('Board Cases', () => {
         // @ts-ignore
         expect(() => board.updateScore(team, 0)).toThrowError();
     });
+
+    test("Fail: Can't update. Teams need to be string", () => {
+        // @ts-ignore
+        expect(() => board.updateScore([1, 'Team 01'], [0, 1])).toThrowError();
+    });
 });

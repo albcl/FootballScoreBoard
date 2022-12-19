@@ -22,7 +22,7 @@ describe('Board Cases', () => {
     });
 
     test.each(matches)('Add $teams match', ({ teams }) => {
-        expectedMatches.set(JSON.stringify(teams), [0, 0]);
+        expectedMatches.set(JSON.stringify(teams), { teams: teams, score: [0, 0] });
 
         board.addMatch(teams);
         expect(board._matches).toMatchObject(expectedMatches);
@@ -43,7 +43,10 @@ describe('Board Cases', () => {
 
     test.each(matches)('Update $teams score -> $score', ({ teams, score }) => {
         board.updateScore(teams, score);
-        expect(board._matches.get(JSON.stringify(teams))).toMatchObject(score);
+        expect(board._matches.get(JSON.stringify(teams))).toMatchObject({
+            teams: teams,
+            score: score,
+        });
     });
 
     test("Fail: Can't update. Teams need to be an array", () => {

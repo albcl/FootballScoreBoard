@@ -75,7 +75,9 @@ class Board {
      *
      * @param {string[]} teams
      */
-    finishMatch(teams: string[]) {}
+    finishMatch(teams: string[]) {
+        return this._matches.delete(teams);
+    }
 }
 
 export default Board;

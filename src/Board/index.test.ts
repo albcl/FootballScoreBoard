@@ -65,7 +65,8 @@ describe('Board Cases', () => {
 
     test('Finish match', () => {
         expect(board._matches.size).toBe(matches.length);
-        board.finishMatch(matches[1].teams);
+        const res = board.finishMatch(matches[1].teams);
+        expect(res).toBeTruthy();
         expect(board._matches.size).toBe(matches.length - 1);
     });
 });

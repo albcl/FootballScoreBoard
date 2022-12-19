@@ -50,7 +50,9 @@ class Board {
      * @param {string[]} teams
      * @param {number[]} score
      */
-    updateScore(teams: string[], score: number[]) {}
+    updateScore(teams: string[], score: number[]) {
+        this._matches.set(teams, score);
+    }
 }
 
 export default Board;

@@ -20,4 +20,8 @@ describe('Board Cases', () => {
         // @ts-ignore
         expect(() => board.addMatch([1, 'Team B'])).toThrowError();
     });
+
+    test('Fail: Need two teams for a match', () => {
+        expect(() => board.addMatch(['Lonely team'])).toThrowError();
+    });
 });

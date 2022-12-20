@@ -29,20 +29,24 @@ class Board {
      * Start a new match
      *
      * @param {string[]} teams
+     * @returns {promise}
      */
     addMatch(teams: string[]) {
-        try {
-            if (!isValidArray(teams)) {
-                throw new Error('`Teams` needs to be passed as an array of 2 elements');
+        return new Promise<string | boolean>((resolve, reject) => {
+            try {
+                if (!isValidArray(teams)) {
+                    throw new Error('`Teams` needs to be passed as an array of 2 elements');
+                }
+                if (!isString(teams)) {
+                    throw new Error('Teams need to be string');
+                }
+                this._isTeamPlaying(teams);
+                this._matches.set(setKey(teams), new Match(teams));
+                resolve(true);
+            } catch (error) {
+                reject(error);
             }
-            if (!isString(teams)) {
-                throw new Error('Teams need to be string');
-            }
-            this._isTeamPlaying(teams);
-            this._matches.set(setKey(teams), new Match(teams));
-        } catch (error) {
-            throw new Error(error);
-        }
+        });
     }
 
     /**
@@ -50,42 +54,58 @@ class Board {
      *
      * @param {string[]} teams
      * @param {number[]} score
+     * @returns {promise}
      */
     updateScore(teams: string[], score: number[]) {
-        if (!isValidArray(teams)) {
-            throw new Error('`Teams` needs to be passed as an array of 2 elements');
-        }
-        if (!isValidArray(score)) {
-            throw new Error('`Score` needs to be passed as an array of 2 elements');
-        }
-        if (!isString(teams)) {
-            throw new Error('Teams need to be string');
-        }
-        if (!isvalidScore(score)) {
-            throw new Error(`That's not a valid score: ${score}`);
-        }
+        return new Promise<string | boolean>((resolve, reject) => {
+            try{
+                if (!isValidArray(teams)) {
+                    throw new Error('`Teams` needs to be passed as an array of 2 elements');
+                }
+                if (!isValidArray(score)) {
+                    throw new Error('`Score` needs to be passed as an array of 2 elements');
+                }
+                if (!isString(teams)) {
+                    throw new Error('Teams need to be string');
+                }
+                if (!isvalidScore(score)) {
+                    throw new Error(`That's not a valid score: ${score}`);
+                }
 
-        const mapKey = setKey(teams);
-        if (!this._matches.has(setKey(teams))) {
-            throw new Error(`There is not ${teams.join(' - ')} match`);
-        }
+                const mapKey = setKey(teams);
+                if (!this._matches.has(setKey(teams))) {
+                    throw new Error(`There is not ${teams.join(' - ')} match`);
+                }
 
-        const match = this._matches.get(mapKey);
-        match.updateScore(score);
+                const match = this._matches.get(mapKey);
+                match.updateScore(score);
+                resolve(true);
+            } catch (error) {
+                reject(error);
+            }
+        });
     }
 
     /**
      * Finish an active match
      *
      * @param {string[]} teams
+     * @returns {promise}
      */
     finishMatch(teams: string[]) {
-        if (!isString(teams)) {
-            throw new Error('Teams need to be string');
-        }
-        if (!this._matches.delete(setKey(teams))) {
-            throw new Error(`${teams.join(' - ')} are not playing at the moment`);
-        }
+        return new Promise<string | boolean>((resolve, reject) => {
+            try {
+                if (!isString(teams)) {
+                    throw new Error('Teams need to be string');
+                }
+                if (!this._matches.delete(setKey(teams))) {
+                    throw new Error(`${teams.join(' - ')} are not playing at the moment`);
+                }
+                resolve(true);
+            } catch (error) {
+                reject(error);
+            }
+        });
     }
 
     /**

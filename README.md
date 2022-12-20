@@ -52,9 +52,15 @@ footballBoard.finishMatch(['England', 'France']);
 
 `yarn test` or `npm test`
 
-The library has been build following a Class approach because of its more simple and clean syntax (as oposite to prototyping or closure) and also because it will allow multiple instances of the Board.
+#  Notes
 
-In a first instance I used the classic ES2015 way of declarating private fields using underscore (`_variable`) because it's widely supported, but with an intention of using the latest options and technology for this test, I have since replaced them with the more up-to-date way of using hash when declaring them (`#variable`).
+I have taken the decision of using Typescript over plain Javascript because of its capability to highlight errors at compilation time and the strong use of types and interfaces when describing data.
+
+The library has been built following a Class approach because of its more simple and clean syntax (as opposite to prototyping or closure) and also because it will allow multiple instances of the Board.
+
+In a first instance, I used the classic ES2015 way of declaring private fields using underscore (`_variable`) because it's widely supported, but with an intention of using the latest options and technology for this test, I have since replaced them with the more up-to-date way of using hash when declaring them (`#variable`). The use of `#` has proven to be a better way of declaring them and it has already become compatible with all main browsers.
+
+---
 
 ## Board
 

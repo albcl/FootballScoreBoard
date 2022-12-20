@@ -1,13 +1,11 @@
 import Match from '../Match';
 import { isString, isValidArray, isvalidScore, setKey } from '../utils';
 
-interface Board {
-    _matches: Map<string, Match>;
-}
-
 class Board {
+    #matches: Map<string, Match>;
+
     constructor() {
-        this._matches = new Map();
+        this.#matches = new Map();
     }
 
     /**
@@ -15,9 +13,9 @@ class Board {
      *
      * @param {string[]} teams
      */
-    _isTeamPlaying(teams: string[]) {
+    #isTeamPlaying(teams: string[]) {
         teams.forEach(team => {
-            for (let [key, value] of this._matches) {
+            for (let [key, value] of this.#matches) {
                 if (key.includes(team)) {
                     throw new Error(`Team ${team} is already playing`);
                 }
@@ -40,8 +38,8 @@ class Board {
                 if (!isString(teams)) {
                     throw new Error('Teams need to be string');
                 }
-                this._isTeamPlaying(teams);
-                this._matches.set(setKey(teams), new Match(teams));
+                this.#isTeamPlaying(teams);
+                this.#matches.set(setKey(teams), new Match(teams));
                 resolve(true);
             } catch (error) {
                 reject(error);
@@ -58,7 +56,7 @@ class Board {
      */
     updateScore(teams: string[], score: number[]) {
         return new Promise<string | boolean>((resolve, reject) => {
-            try{
+            try {
                 if (!isValidArray(teams)) {
                     throw new Error('`Teams` needs to be passed as an array of 2 elements');
                 }
@@ -73,11 +71,11 @@ class Board {
                 }
 
                 const mapKey = setKey(teams);
-                if (!this._matches.has(setKey(teams))) {
+                if (!this.#matches.has(setKey(teams))) {
                     throw new Error(`There is not ${teams.join(' - ')} match`);
                 }
 
-                const match = this._matches.get(mapKey);
+                const match = this.#matches.get(mapKey);
                 match.updateScore(score);
                 resolve(true);
             } catch (error) {
@@ -98,7 +96,7 @@ class Board {
                 if (!isString(teams)) {
                     throw new Error('Teams need to be string');
                 }
-                if (!this._matches.delete(setKey(teams))) {
+                if (!this.#matches.delete(setKey(teams))) {
                     throw new Error(`${teams.join(' - ')} are not playing at the moment`);
                 }
                 resolve(true);
@@ -117,7 +115,7 @@ class Board {
      * @returns {string[]} Live matches
      */
     getSummary() {
-        return [...this._matches.values()]
+        return [...this.#matches.values()]
             .sort((matchA, matchB) => {
                 const totalScoreA = matchA.score[0] + matchA.score[1];
                 const totalScoreB = matchB.score[0] + matchB.score[1];

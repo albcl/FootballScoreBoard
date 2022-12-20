@@ -6,6 +6,8 @@ A typescript library to manage live football scores
 
 ## **Board**
 
+Considering the necessity to make some actions or effects on the client project after `addMatch`, `updateScore` or `finishMatch` are invoked, their methods will return a Promise instead of remaining quiet after completion.
+
 ### Add Match (start a game)
 
 For storing matches and scores I have decided to make use of Maps() because:

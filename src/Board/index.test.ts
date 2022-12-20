@@ -30,15 +30,15 @@ describe('Board Cases', () => {
 
     test('Fail: Teams need to be string', () => {
         // @ts-ignore
-        expect(() => board.addMatch([1, 'Team B'])).toThrowError();
+        expect(() => board.addMatch([1, 'Team B'])).rejects.toThrowError();
     });
 
     test('Fail: Need two teams for a match', () => {
-        expect(() => board.addMatch(['Lonely team'])).toThrowError();
+        expect(() => board.addMatch(['Lonely team'])).rejects.toThrowError();
     });
 
     test("Fail: Can't add match. It already exists", () => {
-        expect(() => board.addMatch(['Team 01', 'Team 10'])).toThrow(/already playing/);
+        expect(() => board.addMatch(['Team 01', 'Team 10'])).rejects.toThrow(/already playing/);
     });
 
     test.each(matches)('Update $teams score -> $score', ({ teams, score }) => {
@@ -51,27 +51,27 @@ describe('Board Cases', () => {
 
     test("Fail: Can't update. Teams need to be an array", () => {
         // @ts-ignore
-        expect(() => board.updateScore('Team 01', [0, 1])).toThrow(/as an array/);
+        expect(() => board.updateScore('Team 01', [0, 1])).rejects.toThrow(/as an array/);
     });
 
     test("Fail: Can't update. Invalid score", () => {
         // @ts-ignore
-        expect(() => board.updateScore(matches[0].teams, 0)).toThrow(/as an array/);
+        expect(() => board.updateScore(matches[0].teams, 0)).rejects.toThrow(/as an array/);
     });
 
     test("Fail: Can't update. Teams need to be string", () => {
         // @ts-ignore
-        expect(() => board.updateScore([1, 'Team 01'], [0, 1])).toThrowError();
+        expect(() => board.updateScore([1, 'Team 01'], [0, 1])).rejects.toThrowError();
     });
 
     test("Fail: Can't update. Match doesn't exist", () => {
         const newValue = [2, 5];
-        expect(() => board.updateScore(['abc', 'def'], newValue)).toThrowError();
+        expect(() => board.updateScore(['abc', 'def'], newValue)).rejects.toThrowError();
     });
 
     test('Fail: Score needs to be an integer', () => {
         const newValue = [2.1, 5];
-        expect(() => board.updateScore(matches[0].teams, newValue)).toThrow(/not a valid score/);
+        expect(() => board.updateScore(matches[0].teams, newValue)).rejects.toThrow(/not a valid score/);
     });
 
     test('Get current matches by total score (summary)', () => {
@@ -92,22 +92,22 @@ describe('Board Cases', () => {
 
     test('Finish match', () => {
         expect(board._matches.size).toBe(matches.length);
-        expect(() => board.finishMatch(matches[1].teams)).not.toThrowError();
-        expect(board._matches.size).toBe(matches.length - 1);
+        board.finishMatch(matches[1].teams)
+        expect(board._matches.size).toBe(matches.length - 1)
     });
 
     test("Fail: Can't finish a game that isn't happening", () => {
-        expect(() => board.finishMatch(['abc', 'def'])).toThrow(/not playing/);
+        expect(() => board.finishMatch(['abc', 'def'])).rejects.toThrow(/not playing/);
     });
 
     test("Fail: Can't finish match. Team need to be string", () => {
         // @ts-ignore
-        expect(() => board.finishMatch([1, 'def'])).toThrow(/string/);
+        expect(() => board.finishMatch([1, 'def'])).rejects.toThrow(/string/);
     });
 
     test("Fail: Can't finish match. Teams need to be an array or won't be found on Map()", () => {
         // @ts-ignore
-        expect(() => board.finishMatch('Team 01')).toThrowError();
+        expect(() => board.finishMatch('Team 01')).rejects.toThrowError();
     });
 
     test("Map() key as array doesn't fit our need", () => {

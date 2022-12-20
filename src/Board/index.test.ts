@@ -41,6 +41,12 @@ describe('Board Cases', () => {
         expect(() => board.addMatch(['Team 01', 'Team 10'])).rejects.toThrow(/already playing/);
     });
 
+    test("Fail: Can't add match. Both teams are the same", () => {
+        expect(() => board.addMatch(['Team 01', 'Team 01'])).rejects.toThrow(
+            /two different strings/,
+        );
+    });
+
     test.each(matches)('Update $teams score -> $score', async ({ teams, score }) => {
         const response = await board.updateScore(teams, score);
         expect(response).toBeTruthy();
@@ -48,12 +54,12 @@ describe('Board Cases', () => {
 
     test("Fail: Can't update. Teams need to be an array", () => {
         // @ts-ignore
-        expect(() => board.updateScore('Team 01', [0, 1])).rejects.toThrow(/as an array/);
+        expect(() => board.updateScore('Team 01', [0, 1])).rejects.toThrow(/two different strings/);
     });
 
     test("Fail: Can't update. Invalid score", () => {
         // @ts-ignore
-        expect(() => board.updateScore(matches[0].teams, 0)).rejects.toThrow(/as an array/);
+        expect(() => board.updateScore(matches[0].teams, 0)).rejects.toThrow(/not a valid score:/);
     });
 
     test("Fail: Can't update. Teams need to be string", () => {

@@ -30,6 +30,11 @@ describe('Utils Cases', () => {
         expect(isValidArray('a')).toBeFalsy();
     });
 
+    test('Cannot contain the same values', () => {
+        expect(isValidArray(['a', 'a'])).toBeFalsy();
+        expect(isValidArray(['2', 2])).toBeFalsy();
+    });
+
     test('Score is valid', () => {
         expect(isvalidScore([2, 4])).toBeTruthy();
     });

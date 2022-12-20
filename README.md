@@ -56,11 +56,11 @@ The library has been build following a Class approach because of its more simple
 
 In a first instance I used the classic ES2015 way of declarating private fields using underscore (`_variable`) because it's widely supported, but with an intention of using the latest options and technology for this test, I have since replaced them with the more up-to-date way of using hash when declaring them (`#variable`).
 
-## **Board**
+## Board
 
 Considering the necessity to make some actions or effects on the client project after `addMatch`, `updateScore` or `finishMatch` are invoked, their methods will return a Promise instead of remaining quiet after completion.
 
-### Add Match (start a game)
+### **Add Match (start a game)**
 
 For storing matches and scores I have decided to make use of Maps() because:
 
@@ -68,11 +68,17 @@ For storing matches and scores I have decided to make use of Maps() because:
 -   ES6 destructuring
 -   Performance adding, deleting or finding properties
 
-Even when for this sample it won't make a massive difference, I have taken into consideration the possibility of having several games at once.
+Even when for this sample project it won't make a big difference, I have taken into consideration the possibility of having several games at once and its performance at real-time events.
 
-### Update Score
+However, there are some occasions (ie: isTeamPlaying()) where it loses its Maps() performance due to having to iterate through both arrays of current teams playing and the two passed down teams to the method (`O(n²)`)
 
-When updating the score of a match I assumpt it will come as one single element with a pair of numbers. Those being structured as first value for the home team, second value for the away team. ie: [0,0]
+A way of improving this could be to store currently playing teams on an object and check if the new teams are contained within it. However, I have looked for simplicity in this sample and discarded the idea.
+
+### **Update Score**
+
+When updating the score of a match I assume it will come as one single element with a pair of numbers. Those are structured as the first value for the home team, and the second value for the away team. ie: [0,0]
+
+---
 
 ## **Match**
 

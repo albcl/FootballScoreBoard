@@ -17,7 +17,7 @@ describe('Board Cases', () => {
     });
 
     test('No games. Get empty Summary', () => {
-        const summary = board.getSummary();
+        const summary = board.getLiveSummary();
         expect(summary).toEqual([]);
     });
 
@@ -25,7 +25,7 @@ describe('Board Cases', () => {
         expectedMatches.set(JSON.stringify(teams), { teams: teams, score: [0, 0] });
 
         board.addMatch(teams);
-        expect(board.getSummary()).toMatchObject(expectedMatches);
+        expect(board.getLiveSummary()).toMatchObject(expectedMatches);
     });
 
     test('Fail: Teams need to be string', () => {
@@ -74,7 +74,7 @@ describe('Board Cases', () => {
     });
 
     test('Get current matches by total score (summary)', () => {
-        const summary = board.getSummary();
+        const summary = board.getLiveSummary();
 
         const expectedOrder = [
             'Team 01 1 - Team 02 4',
@@ -90,9 +90,9 @@ describe('Board Cases', () => {
     });
 
     test('Finish match', () => {
-        expect(board.getSummary().length).toBe(matches.length);
+        expect(board.getLiveSummary().length).toBe(matches.length);
         board.finishMatch(matches[1].teams);
-        expect(board.getSummary().length).toBe(matches.length - 1);
+        expect(board.getLiveSummary().length).toBe(matches.length - 1);
     });
 
     test("Fail: Can't finish a game that isn't happening", () => {

@@ -111,10 +111,9 @@ class Board {
      * ordered by most recently added for those
      * matches with same total score.
      *
-     * @param {string[]} teams
      * @returns {string[]} Live matches
      */
-    getSummary() {
+    getLiveSummary() {
         return [...this.#matches.values()]
             .sort((matchA, matchB) => {
                 const totalScoreA = matchA.score[0] + matchA.score[1];

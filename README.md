@@ -35,7 +35,7 @@ footballBoard.updateScore(['England', 'France'], [1, 2]);
 /**
  * Finish a match at any time
  */
-const liveMatches = footballBoard.getSummary();
+const liveMatches = footballBoard.getLiveSummary();
 
 /**
  * Finish a match at any time

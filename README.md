@@ -52,13 +52,30 @@ footballBoard.finishMatch(['England', 'France']);
 
 `yarn test` or `npm test`
 
+## Build
+
+It's a typescript project and therefore it needs to be compiled as such.
+`npx tsc`
+
 #  Notes
+
+#### Why Typescript
 
 I have taken the decision of using Typescript over plain Javascript because of its capability to highlight errors at compilation time and the strong use of types and interfaces when describing data.
 
+#### Class approach
+
 The library has been built following a Class approach because of its more simple and clean syntax (as opposite to prototyping or closure) and also because it will allow multiple instances of the Board.
 
+### Private fields declaration
 In a first instance, I used the classic ES2015 way of declaring private fields using underscore (`_variable`) because it's widely supported, but with an intention of using the latest options and technology for this test, I have since replaced them with the more up-to-date way of using hash when declaring them (`#variable`). The use of `#` has proven to be a better way of declaring them and it has already become compatible with all main browsers.
+
+### NPM and versioning
+
+I have not set any automated versioning and publishing tool for the project because it would require some extra time and I assume it lies outside of the project's requirement. Instead, I have published an npm package manually.
+
+### Workflows
+I have included a small github workflow action to install and test the project for every PR and Push that happens on the repository. However, as I didn't consider this to be required, I have discarded the idea of doing any further configuration on the repository or workflows. ie Locking the main branch from direct pushes, automated workflows for deployment, etc
 
 ---
 

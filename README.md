@@ -1,10 +1,56 @@
 # FootballScoreBoard
 
+=========
+
 A typescript library to manage live football scores
 
----
+## Installation
 
-#  Notes and assumptions
+`yarn install footballscoreboard` or `npm install footballscoreboard`
+
+## Usage
+
+```javascript
+const footballBoard = new Board();
+
+/**
+ * Start games by adding matches to the board
+ * @param {string[]} Single array with two strings in it (['home team', 'away team'])
+ */
+footballBoard.addMatch(['Croatia', 'Brazil']);
+footballBoard.addMatch(['Netherlands', 'Argentina']);
+footballBoard.addMatch(['Morocco', 'Portugal']);
+footballBoard.addMatch(['England', 'France']);
+
+/**
+ * Update their results
+ * @param {string[]} Single array with teams
+ * @param {number[]} Score array as ['home team score', 'away team score']
+ */
+footballBoard.updateScore(['Croatia', 'Brazil'], [1, 1]);
+footballBoard.updateScore(['Netherlands', 'Argentina'], [2, 2]);
+footballBoard.updateScore(['Morocco', 'Portugal'], [1, 0]);
+footballBoard.updateScore(['England', 'France'], [1, 2]);
+
+/**
+ * Finish a match at any time
+ */
+const liveMatches = footballBoard.getSummary();
+
+/**
+ * Finish a match at any time
+ *
+ * @param {string[]} Match's teams
+ */
+footballBoard.finishMatch(['Croatia', 'Brazil']);
+footballBoard.finishMatch(['Netherlands', 'Argentina']);
+footballBoard.finishMatch(['Morocco', 'Portugal']);
+footballBoard.finishMatch(['England', 'France']);
+```
+
+## Tests
+
+`yarn test` or `npm test`
 
 The library has been build following a Class approach because of its more simple and clean syntax (as oposite to prototyping or closure) and also because it will allow multiple instances of the Board.
 

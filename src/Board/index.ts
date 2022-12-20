@@ -33,7 +33,7 @@ class Board {
         return new Promise<string | boolean>((resolve, reject) => {
             try {
                 if (!isValidArray(teams)) {
-                    throw new Error('`Teams` needs to be passed as an array of 2 elements');
+                    throw new Error('Teams have to be two different strings');
                 }
                 if (!isString(teams)) {
                     throw new Error('Teams need to be string');
@@ -58,10 +58,7 @@ class Board {
         return new Promise<string | boolean>((resolve, reject) => {
             try {
                 if (!isValidArray(teams)) {
-                    throw new Error('`Teams` needs to be passed as an array of 2 elements');
-                }
-                if (!isValidArray(score)) {
-                    throw new Error('`Score` needs to be passed as an array of 2 elements');
+                    throw new Error('Teams have to be two different strings');
                 }
                 if (!isString(teams)) {
                     throw new Error('Teams need to be string');

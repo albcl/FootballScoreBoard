@@ -21,7 +21,7 @@ export const isString = (values: any | any[]) => {
  * @returns {boolean}
  */
 export const isValidArray = (parameter: (string | number)[]) => {
-    return typeof parameter === 'object' && parameter.length === 2;
+    return typeof parameter === 'object' && parameter.length === 2 && parameter[0] != parameter[1];
 };
 
 /**
@@ -31,6 +31,7 @@ export const isValidArray = (parameter: (string | number)[]) => {
  * @returns {boolean}
  */
 export const isvalidScore = (score: number[]) => {
+    if (typeof score !== 'object') return false;
     if (score.length !== 2) return false;
     if (!score.every(value => !isNaN(value))) return false;
     if (!score.every(value => Number.isInteger(value))) return false;

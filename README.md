@@ -80,13 +80,13 @@ When updating the score of a match I assume it will come as one single element w
 
 ---
 
-## **Match**
+## Match
 
-### Class Match()
+### **Class Match()**
 
 Originally I intended to make use of the possibility of setting matches' Map() with their teams array as key (ie: `['Team 1', 'Team 2'] => [0,0]`), but while it does work it also has some caveats.
 
-Maps() would use the reference to the array, not the array's content. Therefore two arrays with same content would fail to be found on the Map(). ie:
+Maps() would use the reference to the array, not the array's content. Therefore two arrays with the same content would fail to be found on the Map(). ie:
 
 ```javascript
 const arrayA = ['Team 1', 'Team 2'];
@@ -101,7 +101,7 @@ console.log(map.has(arrayB)); // false
 
 #### Solutions considered (chronological ordered):
 
--   After adding a match (starting a game), return the key used. It would work but it would be an extra element to control and storage by the client, making it less simple to use.
+-   After adding a match (starting a game), return the key used. It would work but it would be an extra element to control and store by the client, making it less simple to use.
 
 -   Following the last approach: Make the stored match a Class Match() and return the new match. In that way, the client could update the scores without having to pass the teams together with the score (ie: `const matchA = board.addMatch(['Team 1', 'Team 2']); matchA.updateScore([1,0]);`) However this would still have the same problem as above but also increase complexity having to manage somehow the same thing (the match on the board) using two different processes.
 

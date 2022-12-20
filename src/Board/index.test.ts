@@ -25,7 +25,7 @@ describe('Board Cases', () => {
         expectedMatches.set(JSON.stringify(teams), { teams: teams, score: [0, 0] });
 
         board.addMatch(teams);
-        expect(board._matches).toMatchObject(expectedMatches);
+        expect(board.getSummary()).toMatchObject(expectedMatches);
     });
 
     test('Fail: Teams need to be string', () => {
@@ -41,12 +41,9 @@ describe('Board Cases', () => {
         expect(() => board.addMatch(['Team 01', 'Team 10'])).rejects.toThrow(/already playing/);
     });
 
-    test.each(matches)('Update $teams score -> $score', ({ teams, score }) => {
-        board.updateScore(teams, score);
-        expect(board._matches.get(JSON.stringify(teams))).toMatchObject({
-            teams: teams,
-            score: score,
-        });
+    test.each(matches)('Update $teams score -> $score', async ({ teams, score }) => {
+        const response = await board.updateScore(teams, score);
+        expect(response).toBeTruthy();
     });
 
     test("Fail: Can't update. Teams need to be an array", () => {
@@ -71,7 +68,9 @@ describe('Board Cases', () => {
 
     test('Fail: Score needs to be an integer', () => {
         const newValue = [2.1, 5];
-        expect(() => board.updateScore(matches[0].teams, newValue)).rejects.toThrow(/not a valid score/);
+        expect(() => board.updateScore(matches[0].teams, newValue)).rejects.toThrow(
+            /not a valid score/,
+        );
     });
 
     test('Get current matches by total score (summary)', () => {
@@ -91,9 +90,9 @@ describe('Board Cases', () => {
     });
 
     test('Finish match', () => {
-        expect(board._matches.size).toBe(matches.length);
-        board.finishMatch(matches[1].teams)
-        expect(board._matches.size).toBe(matches.length - 1)
+        expect(board.getSummary().length).toBe(matches.length);
+        board.finishMatch(matches[1].teams);
+        expect(board.getSummary().length).toBe(matches.length - 1);
     });
 
     test("Fail: Can't finish a game that isn't happening", () => {

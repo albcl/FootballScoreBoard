@@ -1,7 +1,8 @@
-import { isString, isValidArray, isvalidScore } from '../utils';
+import Match from '../Match';
+import { isString, isValidArray, isvalidScore, setKey } from '../utils';
 
 interface Board {
-    _matches: Map<string[], number[]>;
+    _matches: Map<string, Match>;
 }
 
 class Board {
@@ -38,7 +39,7 @@ class Board {
                 throw new Error('Teams need to be string');
             }
             this._isTeamPlaying(teams);
-            this._matches.set(teams, [0, 0]);
+            this._matches.set(setKey(teams), new Match(teams));
         } catch (error) {
             throw new Error(error);
         }
@@ -60,14 +61,17 @@ class Board {
         if (!isString(teams)) {
             throw new Error('Teams need to be string');
         }
-        if (!this._matches.has(teams)) {
-            throw new Error(`There is not ${teams.join(' - ')} match`);
-        }
         if (!isvalidScore(score)) {
             throw new Error(`That's not a valid score: ${score}`);
         }
 
-        this._matches.set(teams, score);
+        const mapKey = setKey(teams);
+        if (!this._matches.has(setKey(teams))) {
+            throw new Error(`There is not ${teams.join(' - ')} match`);
+        }
+
+        const match = this._matches.get(mapKey);
+        match.updateScore(score);
     }
 
     /**
@@ -79,7 +83,7 @@ class Board {
         if (!isString(teams)) {
             throw new Error('Teams need to be string');
         }
-        if (!this._matches.delete(teams)) {
+        if (!this._matches.delete(setKey(teams))) {
             throw new Error(`${teams.join(' - ')} are not playing at the moment`);
         }
     }
@@ -93,18 +97,17 @@ class Board {
      * @returns {string[]} Live matches
      */
     getSummary() {
-        return [...this._matches]
+        return [...this._matches.values()]
             .sort((matchA, matchB) => {
-                const totalScoreA = matchA[1][0] + matchA[1][1];
-                const totalScoreB = matchB[1][0] + matchB[1][1];
+                const totalScoreA = matchA.score[0] + matchA.score[1];
+                const totalScoreB = matchB.score[0] + matchB.score[1];
 
                 if (totalScoreA > totalScoreB) return -1;
                 if (totalScoreA < totalScoreB) return 1;
                 return 0;
             })
             .map(match => {
-                const teams = match[0];
-                const score = match[1];
+                const { teams, score } = match;
                 return `${teams[0]} ${score[0]} - ${teams[1]} ${score[1]}`;
             });
     }

@@ -18,13 +18,14 @@ describe('Utils Cases', () => {
     });
 
     test('Is a valid array', () => {
-        expect(areValidTeams(['a ', '2'])).toBeTruthy();
+        expect(areValidTeams(['a ', 'a2b'])).toBeTruthy();
     });
 
     test('Is not a valid array', () => {
         expect(areValidTeams(['a', 'b', 'c'])).toBeFalsy();
         expect(areValidTeams(['a', 2])).toBeFalsy();
         expect(areValidTeams(['', ' '])).toBeFalsy();
+        expect(areValidTeams(['1', '2'])).toBeFalsy();
     });
 
     test('Is not an array', () => {

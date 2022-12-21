@@ -24,8 +24,8 @@ export const areValidTeams = (parameter: (string | number)[]) => {
     return (
         typeof parameter === 'object' &&
         parameter.length === 2 &&
-        typeof parameter[0] === 'string' &&
-        typeof parameter[1] === 'string' &&
+        !Number.isInteger(Number.parseInt(parameter[0] as string)) &&
+        !Number.isInteger(Number.parseInt(parameter[1] as string)) &&
         parameter[0] != parameter[1] &&
         (parameter[0] as string).trimEnd().trimStart() != '' &&
         (parameter[1] as string).trimEnd().trimStart() != ''

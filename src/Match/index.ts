@@ -1,4 +1,4 @@
-import { isValidArray, isString, isvalidScore } from '../utils';
+import { areValidTeams, isString, isvalidScore } from '../utils';
 
 interface Match {
     teams: string[];
@@ -7,7 +7,7 @@ interface Match {
 
 class Match {
     constructor(teams: string[]) {
-        if (!isValidArray(teams)) {
+        if (!areValidTeams(teams)) {
             throw new Error('A match needs two teams for it to happen');
         }
         if (!isString(teams)) {

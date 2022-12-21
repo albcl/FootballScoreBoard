@@ -20,8 +20,16 @@ export const isString = (values: any | any[]) => {
  * @param {(string|number)[]} parameter
  * @returns {boolean}
  */
-export const isValidArray = (parameter: (string | number)[]) => {
-    return typeof parameter === 'object' && parameter.length === 2 && parameter[0] != parameter[1];
+export const areValidTeams = (parameter: (string | number)[]) => {
+    return (
+        typeof parameter === 'object' &&
+        parameter.length === 2 &&
+        typeof parameter[0] === 'string' &&
+        typeof parameter[1] === 'string' &&
+        parameter[0] != parameter[1] &&
+        (parameter[0] as string).trimEnd().trimStart() != '' &&
+        (parameter[1] as string).trimEnd().trimStart() != ''
+    );
 };
 
 /**

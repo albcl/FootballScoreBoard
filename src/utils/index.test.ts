@@ -1,4 +1,4 @@
-import { isString, isValidArray, isvalidScore, setKey } from '.';
+import { isString, areValidTeams, isvalidScore, setKey } from '.';
 
 describe('Utils Cases', () => {
     test('Is string', () => {
@@ -18,21 +18,23 @@ describe('Utils Cases', () => {
     });
 
     test('Is a valid array', () => {
-        expect(isValidArray(['a', 2])).toBeTruthy();
+        expect(areValidTeams(['a ', '2'])).toBeTruthy();
     });
 
     test('Is not a valid array', () => {
-        expect(isValidArray(['a', 'b', 'c'])).toBeFalsy();
+        expect(areValidTeams(['a', 'b', 'c'])).toBeFalsy();
+        expect(areValidTeams(['a', 2])).toBeFalsy();
+        expect(areValidTeams(['', ' '])).toBeFalsy();
     });
 
     test('Is not an array', () => {
         // @ts-ignore
-        expect(isValidArray('a')).toBeFalsy();
+        expect(areValidTeams('a')).toBeFalsy();
     });
 
     test('Cannot contain the same values', () => {
-        expect(isValidArray(['a', 'a'])).toBeFalsy();
-        expect(isValidArray(['2', 2])).toBeFalsy();
+        expect(areValidTeams(['a', 'a'])).toBeFalsy();
+        expect(areValidTeams(['2', 2])).toBeFalsy();
     });
 
     test('Score is valid', () => {

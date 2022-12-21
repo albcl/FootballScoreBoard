@@ -1,5 +1,5 @@
 import Match from '../Match';
-import { isString, isValidArray, isvalidScore, setKey } from '../utils';
+import { isString, areValidTeams, isvalidScore, setKey } from '../utils';
 
 class Board {
     #matches: Map<string, Match>;
@@ -32,7 +32,7 @@ class Board {
     addMatch(teams: string[]) {
         return new Promise<string | boolean>((resolve, reject) => {
             try {
-                if (!isValidArray(teams)) {
+                if (!areValidTeams(teams)) {
                     throw new Error('Teams have to be two different strings');
                 }
                 if (!isString(teams)) {
@@ -57,7 +57,7 @@ class Board {
     updateScore(teams: string[], score: number[]) {
         return new Promise<string | boolean>((resolve, reject) => {
             try {
-                if (!isValidArray(teams)) {
+                if (!areValidTeams(teams)) {
                     throw new Error('Teams have to be two different strings');
                 }
                 if (!isString(teams)) {
